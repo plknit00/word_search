@@ -31,14 +31,13 @@ bool WordSearchGrid::init_2d_letter_grid(FILE *file) {
   return true;
 }
 
-bool WordSearchGrid::check_letter(const std::string &word, int r, int c,
-                                  int i) {
+bool WordSearchGrid::check_letter(const char &letter, int r, int c) {
   // indecies out of bounds
   if ((r < 0) || (r >= num_rows) || (c < 0) || (c >= num_cols)) {
     return false;
   }
   // not a letter match
-  else if (word_grid[r][c] != word[i]) {
+  if (word_grid[r][c] != letter) {
     return false;
   }
   // letter match found!
@@ -47,32 +46,51 @@ bool WordSearchGrid::check_letter(const std::string &word, int r, int c,
 
 bool WordSearchGrid::word_hoirz_vert(const std::string &word, int r, int c) {
   int word_len = word.length();
+  bool up_path_valid = true;
+  bool down_path_valid = true;
+  bool left_path_valid = true;
+  bool right_path_valid = true;
   for (int i = 1; i < word_len; i++) {
-    int true_count = 0;
-    if (check_letter(word, r - i, c, i) || check_letter(word, r + i, c, i) ||
-        check_letter(word, r, c - i, i) || check_letter(word, r, c + i, i)) {
-      continue;
-    } else {
-      return false;
+    if (!check_letter(word[i], r - i, c)) {
+      up_path_valid = false;
+    }
+    if (!check_letter(word[i], r + i, c)) {
+      down_path_valid = false;
+    }
+    if (!check_letter(word[i], r, c - i)) {
+      left_path_valid = false;
+    }
+    if (!check_letter(word[i], r, c + i)) {
+      right_path_valid = false;
     }
   }
-  return true;
+  // word found value
+  return (up_path_valid || down_path_valid || left_path_valid ||
+          right_path_valid);
 }
 
 bool WordSearchGrid::word_diag(const std::string &word, int r, int c) {
   int word_len = word.length();
+  bool q1 = true;
+  bool q2 = true;
+  bool q3 = true;
+  bool q4 = true;
   for (int i = 1; i < word_len; i++) {
-    int true_count = 0;
-    if (check_letter(word, r - i, c - i, i) ||
-        check_letter(word, r + i, c - i, i) ||
-        check_letter(word, r + i, c - i, i) ||
-        check_letter(word, r + i, c + i, i)) {
-      continue;
-    } else {
-      return false;
+    if (!check_letter(word[i], r - i, c + i)) {
+      q1 = false;
+    }
+    if (!check_letter(word[i], r - i, c - i)) {
+      q2 = false;
+    }
+    if (!check_letter(word[i], r + i, c - i)) {
+      q3 = false;
+    }
+    if (!check_letter(word[i], r + i, c + i)) {
+      q4 = false;
     }
   }
-  return true;
+  // word found value
+  return (q1 || q2 || q3 || q4);
 }
 
 bool WordSearchGrid::funky_cases(const std::string &word, int r, int c) {
@@ -83,14 +101,20 @@ bool WordSearchGrid::funky_cases(const std::string &word, int r, int c) {
 bool WordSearchGrid::find_word_in_grid(const std::string &word) {
   for (int r = 0; r < num_rows; r++) {
     for (int c = 0; c < num_cols; c++) {
+      // check match on first letter of word
       if (word_grid[r][c] == word[0]) {
-        if (word_hoirz_vert(word, r, c)) {
-          return true;
-        } else if (word_diag(word, r, c)) {
-          return true;
-        } else if (funky_cases(word, r, c)) {
+        int word_len = word.size();
+        if (word_len == 1) {
           return true;
         }
+        if ((word_len > 1) && word_hoirz_vert(word, r, c)) {
+          return true;
+        } else if ((word_len > 1) && word_diag(word, r, c)) {
+          return true;
+        }
+        // else if ((word_len > 1) && funky_cases(word, r, c)) {
+        //    return true;
+        //  }
       }
     }
   }
@@ -103,6 +127,7 @@ std::vector<std::string> WordSearchGrid::look_for_dict_words_in_grid() {
       words_found.push_back(dict[i]);
     }
   }
+  print_words_found();
   return words_found;
 }
 

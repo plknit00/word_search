@@ -9,7 +9,7 @@ public:
   void set_2d_grid(int nr, int nc, std::vector<std::vector<char>> wg);
   bool create_2d_letter_grid(FILE *file);
   bool init_2d_letter_grid(FILE *file);
-  bool check_letter(const std::string &word, int r, int c, int i);
+  bool check_letter(const char &letter, int r, int c);
   bool word_hoirz_vert(const std::string &word, int r, int c);
   bool word_diag(const std::string &word, int r, int c);
   bool funky_cases(const std::string &word, int r, int c);
