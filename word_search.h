@@ -13,6 +13,7 @@ public:
   bool funky_cases(const std::string &word, int r, int c);
   bool find_word_in_grid(const std::string &word);
   void look_for_dict_words_in_grid();
+  void print_words_found();
 
 private:
   std::vector<std::string> dict;

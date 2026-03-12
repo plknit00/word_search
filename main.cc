@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ostream>
 #include <string>
+#include <vector>
 
 #include "word_search.h"
 
@@ -16,8 +17,8 @@ int main(int argc, const char **argv) {
     return -1;
   }
 
-  FILE file1 = open(argv[0]);
-  FILE file2 = open(argv[1]);
+  //   FILE file1 = open(argv[0]);
+  //   FILE file2 = open(argv[1]);
 
   // You are given a dictionary of words, and a 2d grid of letters and you're
   // finding all possible word search words. Normally word search only allows
@@ -27,13 +28,17 @@ int main(int argc, const char **argv) {
   // line that goes at an angle of atan(3 / 5), if you atarted from (0,0) it
   // would include (5,3), (10,6), etc
 
-  if (!WSG::init_dict_words(file1)) {
-    std::cout << "Dictionary of words is invalid." << std::endl;
-    return -1;
-  }
+  //   if (!WSG::init_dict_words(file1)) {
+  //     std::cout << "Dictionary of words is invalid." << std::endl;
+  //     return -1;
+  //   }
 
-  if (!WSG::init_2d_letter_grid(file2)) {
-    std::cout << "2D letter grid invalid." << std::endl;
-    return -1;
-  }
+  //   if (!WSG::init_2d_letter_grid(file2)) {
+  //     std::cout << "2D letter grid invalid." << std::endl;
+  //     return -1;
+  //   }
+
+  WordSearchGrid wsg;
+  wsg.look_for_dict_words_in_grid();
+  wsg.print_words_found();
 }

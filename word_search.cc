@@ -1,3 +1,8 @@
+#include <iostream>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "word_search.h"
 
 namespace WSG {
@@ -83,6 +88,15 @@ void WordSearchGrid::look_for_dict_words_in_grid() {
     if (find_word_in_grid(dict[i])) {
       words_found.push_back(dict[i]);
     }
+  }
+}
+
+void WordSearchGrid::print_words_found() {
+  int words_found_len = words_found.size();
+  std::cout << "Number of words from dictionary found in 2D grid: "
+            << words_found_len << std::endl;
+  for (int i = 0; i < words_found_len; i++) {
+    std::cout << words_found[i] << std::endl;
   }
 }
 
