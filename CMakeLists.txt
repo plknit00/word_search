@@ -26,7 +26,7 @@ target_include_directories(word_search_test PRIVATE
 )
 
 target_link_libraries(word_search_test
-    GTest::gtest_main
+    GTest::gmock_main
 )
 
 include(GoogleTest)
