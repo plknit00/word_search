@@ -93,7 +93,7 @@ bool WordSearchGrid::word_diag(const std::string &word, int r, int c) {
   return (q1 || q2 || q3 || q4);
 }
 
-bool WordSearchGrid::funky_cases(const std::string &word, int r, int c) {
+bool WordSearchGrid::rational_diag(const std::string &word, int r, int c) {
   // to do
   return false;
 }
@@ -111,10 +111,9 @@ bool WordSearchGrid::find_word_in_grid(const std::string &word) {
           return true;
         } else if ((word_len > 1) && word_diag(word, r, c)) {
           return true;
+        } else if ((word_len > 1) && rational_diag(word, r, c)) {
+          return true;
         }
-        // else if ((word_len > 1) && funky_cases(word, r, c)) {
-        //    return true;
-        //  }
       }
     }
   }

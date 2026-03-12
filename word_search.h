@@ -12,7 +12,7 @@ public:
   bool check_letter(const char &letter, int r, int c);
   bool word_hoirz_vert(const std::string &word, int r, int c);
   bool word_diag(const std::string &word, int r, int c);
-  bool funky_cases(const std::string &word, int r, int c);
+  bool rational_diag(const std::string &word, int r, int c);
   bool find_word_in_grid(const std::string &word);
   std::vector<std::string> look_for_dict_words_in_grid();
   void print_words_found();
