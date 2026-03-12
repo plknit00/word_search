@@ -17,3 +17,4 @@ This program takes in a dictionary list of words and a 2D grid of letters and se
 2. run >> cmake (if build configurations were changed)
 3. run >> make (if any files were changed)
 4. run >> ctest (runs tests)
+5. Check for printed results in build/Testing/Temporary/LastTest.log
