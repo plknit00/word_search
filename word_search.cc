@@ -7,12 +7,26 @@
 
 namespace WSG {
 
+void WordSearchGrid::set_dict(int nw, std::vector<std::string> d) {
+  num_dict_words = nw;
+  dict = d;
+}
+
+void WordSearchGrid::set_2d_grid(int nr, int nc,
+                                 std::vector<std::vector<char>> wg) {
+  num_rows = nr;
+  num_cols = nc;
+  word_grid = wg;
+}
+
 bool WordSearchGrid::create_2d_letter_grid(FILE *file) {
+  // set_2d_grid
   // to do
   return true;
 }
 
 bool WordSearchGrid::init_2d_letter_grid(FILE *file) {
+  // set_dict
   // to do
   return true;
 }
@@ -83,12 +97,13 @@ bool WordSearchGrid::find_word_in_grid(const std::string &word) {
   return false;
 }
 
-void WordSearchGrid::look_for_dict_words_in_grid() {
+std::vector<std::string> WordSearchGrid::look_for_dict_words_in_grid() {
   for (int i = 0; i < num_dict_words; i++) {
     if (find_word_in_grid(dict[i])) {
       words_found.push_back(dict[i]);
     }
   }
+  return words_found;
 }
 
 void WordSearchGrid::print_words_found() {
