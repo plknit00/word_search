@@ -5,34 +5,17 @@
 
 #include "word_search.h"
 
-namespace WSG {
+namespace wsg {
 
-void WordSearchGrid::set_dict(std::vector<std::string> d) {
-  num_dict_words = d.size();
+WordSearchGrid::WordSearchGrid(wsg::Dict d, wsg::Grid wg) {
   dict = d;
-}
-
-void WordSearchGrid::set_2d_grid(std::vector<std::vector<char>> wg) {
-  num_rows = wg.size();
-  num_cols = wg[0].size();
   word_grid = wg;
-}
-
-bool WordSearchGrid::create_2d_letter_grid(FILE *file) {
-  // set_2d_grid
-  // to do
-  return true;
-}
-
-bool WordSearchGrid::init_2d_letter_grid(FILE *file) {
-  // set_dict
-  // to do
-  return true;
 }
 
 bool WordSearchGrid::check_letter(const char &letter, int r, int c) {
   // indecies out of bounds
-  if ((r < 0) || (r >= num_rows) || (c < 0) || (c >= num_cols)) {
+  if ((r < 0) || (r >= word_grid.get_num_rows()) || (c < 0) ||
+      (c >= word_grid.get_num_cols())) {
     return false;
   }
   // not a letter match
@@ -43,7 +26,7 @@ bool WordSearchGrid::check_letter(const char &letter, int r, int c) {
   return true;
 }
 
-bool WordSearchGrid::word_hoirz_vert(const std::string &word, int r, int c) {
+bool WordSearchGrid::word_horiz_vert(const std::string &word, int r, int c) {
   int word_len = word.length();
   bool up_path_valid = true;
   bool down_path_valid = true;
@@ -98,15 +81,15 @@ bool WordSearchGrid::rational_diag(const std::string &word, int r, int c) {
 }
 
 bool WordSearchGrid::find_word_in_grid(const std::string &word) {
-  for (int r = 0; r < num_rows; r++) {
-    for (int c = 0; c < num_cols; c++) {
+  for (int r = 0; r < word_grid.get_num_rows(); r++) {
+    for (int c = 0; c < word_grid.get_num_cols(); c++) {
       // check match on first letter of word
       if (word_grid[r][c] == word[0]) {
         int word_len = word.size();
         if (word_len == 1) {
           return true;
         }
-        if ((word_len > 1) && word_hoirz_vert(word, r, c)) {
+        if ((word_len > 1) && word_horiz_vert(word, r, c)) {
           return true;
         } else if ((word_len > 1) && word_diag(word, r, c)) {
           return true;
@@ -119,10 +102,10 @@ bool WordSearchGrid::find_word_in_grid(const std::string &word) {
   return false;
 }
 
-std::vector<std::string> WordSearchGrid::look_for_dict_words_in_grid() {
-  for (int i = 0; i < num_dict_words; i++) {
-    if (find_word_in_grid(dict[i])) {
-      words_found.push_back(dict[i]);
+wsg::Dict &WordSearchGrid::look_for_dict_words_in_grid() {
+  for (auto word : dict) {
+    if (find_word_in_grid(word)) {
+      words_found.add_word(word);
     }
   }
   print_words_found();
@@ -130,12 +113,12 @@ std::vector<std::string> WordSearchGrid::look_for_dict_words_in_grid() {
 }
 
 void WordSearchGrid::print_words_found() {
-  int words_found_len = words_found.size();
+  int words_found_len = words_found.get_num_dict_words();
   std::cout << "Number of words from dictionary found in 2D grid: "
             << words_found_len << std::endl;
-  for (int i = 0; i < words_found_len; i++) {
-    std::cout << words_found[i] << std::endl;
+  for (auto word_found : words_found) {
+    std::cout << word_found << std::endl;
   }
 }
 
-} // namespace WSG
+} // namespace wsg

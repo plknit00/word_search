@@ -19,6 +19,8 @@ enable_testing()
 add_executable(word_search_test
 test.cc
 word_search.cc
+dict.cc
+grid.cc
 )
 
 target_include_directories(word_search_test PRIVATE

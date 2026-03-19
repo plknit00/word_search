@@ -1,28 +1,26 @@
+#pragma once
+
+#include "dict.h"
+#include "grid.h"
 #include <string>
 #include <vector>
 
-namespace WSG {
+namespace wsg {
 
 class WordSearchGrid {
 public:
-  void set_dict(std::vector<std::string> d);
-  void set_2d_grid(std::vector<std::vector<char>> wg);
-  bool create_2d_letter_grid(FILE *file);
-  bool init_2d_letter_grid(FILE *file);
-  bool check_letter(const char &letter, int r, int c);
-  bool word_hoirz_vert(const std::string &word, int r, int c);
-  bool word_diag(const std::string &word, int r, int c);
-  bool rational_diag(const std::string &word, int r, int c);
+  WordSearchGrid(wsg::Dict d, wsg::Grid wg);
   bool find_word_in_grid(const std::string &word);
-  std::vector<std::string> look_for_dict_words_in_grid();
+  wsg::Dict &look_for_dict_words_in_grid();
   void print_words_found();
 
 private:
-  std::vector<std::string> dict;
-  std::vector<std::vector<char>> word_grid;
-  int num_rows;
-  int num_cols;
-  int num_dict_words;
-  std::vector<std::string> words_found;
+  wsg::Dict dict;
+  wsg::Grid word_grid;
+  wsg::Dict words_found;
+  bool check_letter(const char &letter, int r, int c);
+  bool word_horiz_vert(const std::string &word, int r, int c);
+  bool word_diag(const std::string &word, int r, int c);
+  bool rational_diag(const std::string &word, int r, int c);
 };
-} // namespace WSG
+} // namespace wsg

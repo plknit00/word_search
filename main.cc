@@ -5,7 +5,7 @@
 
 #include "word_search.h"
 
-using namespace WSG;
+using namespace wsg;
 
 int main(int argc, const char **argv) {
 
@@ -38,7 +38,7 @@ int main(int argc, const char **argv) {
   //     return -1;
   //   }
 
-  WordSearchGrid wsg;
-  wsg.look_for_dict_words_in_grid();
-  wsg.print_words_found();
+  // WordSearchGrid wsg;
+  //  wsg.look_for_dict_words_in_grid();
+  //  wsg.print_words_found();
 }
