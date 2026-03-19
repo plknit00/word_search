@@ -14,8 +14,8 @@ TEST(WordSearchTest, OneLetterGridAndDict) {
   dict.push_back("a");
   std::vector<std::vector<char>> word_grid;
   word_grid.push_back({'a'});
-  wsg.set_dict(1, dict);
-  wsg.set_2d_grid(1, 1, word_grid);
+  wsg.set_dict(dict);
+  wsg.set_2d_grid(word_grid);
   std::vector<std::string> words_found = wsg.look_for_dict_words_in_grid();
   EXPECT_EQ(words_found, dict);
 }
@@ -26,8 +26,8 @@ TEST(WordSearchTest, OneLetterGridAndDiffLetterDict) {
   dict.push_back("a");
   std::vector<std::vector<char>> word_grid;
   word_grid.push_back({'b'});
-  wsg.set_dict(1, dict);
-  wsg.set_2d_grid(1, 1, word_grid);
+  wsg.set_dict(dict);
+  wsg.set_2d_grid(word_grid);
   std::vector<std::string> words_found = wsg.look_for_dict_words_in_grid();
   EXPECT_NE(words_found, dict);
 }
@@ -41,8 +41,8 @@ TEST(WordSearchTest, OneLineSmall) {
   dict.push_back("ba");
   std::vector<std::vector<char>> word_grid;
   word_grid.push_back({'a', 'b'});
-  wsg.set_dict(dict.size(), dict);
-  wsg.set_2d_grid(1, 2, word_grid);
+  wsg.set_dict(dict);
+  wsg.set_2d_grid(word_grid);
   std::vector<std::string> words_found = wsg.look_for_dict_words_in_grid();
   std::vector<std::string> solution;
   solution.push_back("a");
@@ -65,8 +65,8 @@ TEST(WordSearchTest, OneLine) {
   dict.push_back("dca");
   std::vector<std::vector<char>> word_grid;
   word_grid.push_back({'a', 'b', 'c', 'd'});
-  wsg.set_dict(dict.size(), dict);
-  wsg.set_2d_grid(1, 4, word_grid);
+  wsg.set_dict(dict);
+  wsg.set_2d_grid(word_grid);
   std::vector<std::string> words_found = wsg.look_for_dict_words_in_grid();
   std::vector<std::string> solution;
   solution.push_back("a");
@@ -91,8 +91,8 @@ TEST(WordSearchTest, OneLineRepeatLetters) {
   dict.push_back("aba");
   std::vector<std::vector<char>> word_grid;
   word_grid.push_back({'a', 'b', 'a', 'a'});
-  wsg.set_dict(dict.size(), dict);
-  wsg.set_2d_grid(1, 4, word_grid);
+  wsg.set_dict(dict);
+  wsg.set_2d_grid(word_grid);
   std::vector<std::string> words_found = wsg.look_for_dict_words_in_grid();
   std::vector<std::string> solution;
   solution.push_back("a");
@@ -121,8 +121,8 @@ TEST(WordSearchTest, TwoLineSmall) {
   std::vector<std::vector<char>> word_grid;
   word_grid.push_back({'a', 'b'});
   word_grid.push_back({'c', 'd'});
-  wsg.set_dict(dict.size(), dict);
-  wsg.set_2d_grid(2, 2, word_grid);
+  wsg.set_dict(dict);
+  wsg.set_2d_grid(word_grid);
   std::vector<std::string> words_found = wsg.look_for_dict_words_in_grid();
   std::vector<std::string> solution;
   solution.push_back("a");
@@ -154,8 +154,8 @@ TEST(WordSearchTest, TwoLine) {
   std::vector<std::vector<char>> word_grid;
   word_grid.push_back({'a', 'b', 'c', 'd'});
   word_grid.push_back({'e', 'f', 'g', 'h'});
-  wsg.set_dict(dict.size(), dict);
-  wsg.set_2d_grid(2, 4, word_grid);
+  wsg.set_dict(dict);
+  wsg.set_2d_grid(word_grid);
   std::vector<std::string> words_found = wsg.look_for_dict_words_in_grid();
   std::vector<std::string> solution;
   solution.push_back("ab");
@@ -194,8 +194,8 @@ TEST(WordSearchTest, TwoLineComplexDiagonal) {
   std::vector<std::vector<char>> word_grid;
   word_grid.push_back({'a', 'b', 'c', 'd'});
   word_grid.push_back({'e', 'f', 'g', 'h'});
-  wsg.set_dict(dict.size(), dict);
-  wsg.set_2d_grid(2, 4, word_grid);
+  wsg.set_dict(dict);
+  wsg.set_2d_grid(word_grid);
   std::vector<std::string> words_found = wsg.look_for_dict_words_in_grid();
   wsg.print_words_found();
   std::vector<std::string> solution;

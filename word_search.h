@@ -5,8 +5,8 @@ namespace WSG {
 
 class WordSearchGrid {
 public:
-  void set_dict(int num_words, std::vector<std::string> d);
-  void set_2d_grid(int nr, int nc, std::vector<std::vector<char>> wg);
+  void set_dict(std::vector<std::string> d);
+  void set_2d_grid(std::vector<std::vector<char>> wg);
   bool create_2d_letter_grid(FILE *file);
   bool init_2d_letter_grid(FILE *file);
   bool check_letter(const char &letter, int r, int c);

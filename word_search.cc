@@ -7,15 +7,14 @@
 
 namespace WSG {
 
-void WordSearchGrid::set_dict(int nw, std::vector<std::string> d) {
-  num_dict_words = nw;
+void WordSearchGrid::set_dict(std::vector<std::string> d) {
+  num_dict_words = d.size();
   dict = d;
 }
 
-void WordSearchGrid::set_2d_grid(int nr, int nc,
-                                 std::vector<std::vector<char>> wg) {
-  num_rows = nr;
-  num_cols = nc;
+void WordSearchGrid::set_2d_grid(std::vector<std::vector<char>> wg) {
+  num_rows = wg.size();
+  num_cols = wg[0].size();
   word_grid = wg;
 }
 
