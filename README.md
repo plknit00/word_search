@@ -18,3 +18,12 @@ This program takes in a dictionary list of words and a 2D grid of letters and se
 3. run >> make (if any files were changed)
 4. run >> ctest (runs tests)
 5. Check for printed results in build/Testing/Temporary/LastTest.log
+
+## TODO
+1. make dict and grid initializer lists st i dont have to create vectors and cast them as dict and grid type ex:
+   1. ex. wsg::Grid d({{'a','b'} //
+                  1.  {'c','d'}})
+2. make additional constructors for random generation
+3. add file system interaction
+4. add ui
+5. do word serach finder along all rational diagonals
