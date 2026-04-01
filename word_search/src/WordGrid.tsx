@@ -1,6 +1,11 @@
 import React from "react";
 import "./WordGrid.css";
 
+interface Coordinate {
+  row: number;
+  col: number;
+}
+
 class WordGrid {
   grid: string[][];
 
@@ -16,10 +21,14 @@ class WordGrid {
   }
 }
 
-function GridCell(props: { cell: string }) {
-  let [isHighlighted, updateIsHighlighted] = React.useState(false);
+function GridCell(props: {
+  cell: string;
+  isHighlighted: boolean;
+  updateHighlightedCell: (coords: Coordinate) => void;
+  coord: Coordinate;
+}) {
   let className;
-  if (isHighlighted) {
+  if (props.isHighlighted) {
     className = "WordGridCellHighlighted";
   } else {
     className = "WordGridCell";
@@ -29,7 +38,7 @@ function GridCell(props: { cell: string }) {
     <td
       className={className}
       onClick={() => {
-        updateIsHighlighted(true);
+        props.updateHighlightedCell(props.coord);
       }}
     >
       {props.cell}
@@ -37,19 +46,41 @@ function GridCell(props: { cell: string }) {
   );
 }
 
-function GridRow(props: { row: string[] }) {
+function GridRow(props: {
+  row: string[];
+  highlightedCell?: Coordinate;
+  rowIndex: number;
+  updateHighlightedCell: (coords: Coordinate) => void;
+}) {
   let row_vals = [];
+  let isRow = props.rowIndex == props.highlightedCell?.row;
   for (let c = 0; c < props.row.length; c++) {
-    row_vals.push(<GridCell cell={props.row[c]} />);
+    let isHighlighted = isRow && c == props.highlightedCell?.col;
+    row_vals.push(
+      <GridCell
+        cell={props.row[c]}
+        isHighlighted={isHighlighted}
+        updateHighlightedCell={props.updateHighlightedCell}
+        coord={{ row: props.rowIndex, col: c }}
+      />,
+    );
   }
   return <tr>{row_vals}</tr>;
 }
 
 export function WordGridComponent() {
+  let [highlightedCell, updateHighlightedCell] = React.useState<Coordinate>();
   let grid = new WordGrid(5, 5);
   let table = [];
   for (let r = 0; r < grid.grid.length; r++) {
-    table.push(<GridRow row={grid.grid[r]} />);
+    table.push(
+      <GridRow
+        row={grid.grid[r]}
+        highlightedCell={highlightedCell}
+        rowIndex={r}
+        updateHighlightedCell={updateHighlightedCell}
+      />,
+    );
   }
   return <table>{table}</table>;
 }
