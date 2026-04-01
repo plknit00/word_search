@@ -1,3 +1,6 @@
+import React from "react";
+import "./WordGrid.css";
+
 class WordGrid {
   grid: string[][];
 
@@ -14,7 +17,24 @@ class WordGrid {
 }
 
 function GridCell(props: { cell: string }) {
-  return <td>{props.cell}</td>;
+  let [isHighlighted, updateIsHighlighted] = React.useState(false);
+  let className;
+  if (isHighlighted) {
+    className = "WordGridCellHighlighted";
+  } else {
+    className = "WordGridCell";
+  }
+
+  return (
+    <td
+      className={className}
+      onClick={() => {
+        updateIsHighlighted(true);
+      }}
+    >
+      {props.cell}
+    </td>
+  );
 }
 
 function GridRow(props: { row: string[] }) {
