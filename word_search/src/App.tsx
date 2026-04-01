@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { WordGridComponent } from "./WordGrid";
 
 function Header() {
   return (
@@ -29,6 +30,7 @@ function App() {
     <div className="App">
       <Header />
       <Body />
+      <WordGridComponent />
     </div>
   );
 }
