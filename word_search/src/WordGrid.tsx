@@ -1,10 +1,6 @@
 import React from "react";
 import "./WordGrid.css";
-
-interface Coordinate {
-  row: number;
-  col: number;
-}
+import { Coordinate, HighlightedCells } from "./HighlightedCells";
 
 class WordGrid {
   grid: string[][];
@@ -24,7 +20,7 @@ class WordGrid {
 function GridCell(props: {
   cell: string;
   isHighlighted: boolean;
-  updateHighlightedCell: (coords: Coordinate) => void;
+  updateHighlightedCells: (coords: Coordinate) => void;
   coord: Coordinate;
 }) {
   let className;
@@ -38,7 +34,7 @@ function GridCell(props: {
     <td
       className={className}
       onClick={() => {
-        props.updateHighlightedCell(props.coord);
+        props.updateHighlightedCells(props.coord);
       }}
     >
       {props.cell}
@@ -48,19 +44,19 @@ function GridCell(props: {
 
 function GridRow(props: {
   row: string[];
-  highlightedCell?: Coordinate;
+  highlightedCells?: Coordinate;
   rowIndex: number;
-  updateHighlightedCell: (coords: Coordinate) => void;
+  updateHighlightedCells: (coords: Coordinate) => void;
 }) {
   let row_vals = [];
-  let isRow = props.rowIndex == props.highlightedCell?.row;
+  let isRow = props.rowIndex === props.highlightedCells?.row;
   for (let c = 0; c < props.row.length; c++) {
-    let isHighlighted = isRow && c == props.highlightedCell?.col;
+    let isHighlighted = isRow && c === props.highlightedCells?.col;
     row_vals.push(
       <GridCell
         cell={props.row[c]}
         isHighlighted={isHighlighted}
-        updateHighlightedCell={props.updateHighlightedCell}
+        updateHighlightedCells={props.updateHighlightedCells}
         coord={{ row: props.rowIndex, col: c }}
       />,
     );
@@ -69,18 +65,22 @@ function GridRow(props: {
 }
 
 export function WordGridComponent() {
-  let [highlightedCell, updateHighlightedCell] = React.useState<Coordinate>();
+  let [highlightedCells, updateHighlightedCells] = React.useState<Coordinate>();
   let grid = new WordGrid(5, 5);
   let table = [];
   for (let r = 0; r < grid.grid.length; r++) {
     table.push(
       <GridRow
         row={grid.grid[r]}
-        highlightedCell={highlightedCell}
+        highlightedCells={highlightedCells}
         rowIndex={r}
-        updateHighlightedCell={updateHighlightedCell}
+        updateHighlightedCells={updateHighlightedCells}
       />,
     );
   }
-  return <table>{table}</table>;
+  return (
+    <div className="WordSearchGrid">
+      <table>{table}</table>
+    </div>
+  );
 }
