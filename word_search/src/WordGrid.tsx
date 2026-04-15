@@ -1,6 +1,10 @@
 import React from "react";
 import "./WordGrid.css";
-import { Coordinate, HighlightedCells } from "./HighlightedCells";
+import {
+  Coordinate,
+  HighlightedCells,
+  HighlightedCellsHook,
+} from "./HighlightedCells";
 
 class WordGrid {
   grid: string[][];
@@ -19,12 +23,11 @@ class WordGrid {
 
 function GridCell(props: {
   cell: string;
-  isHighlighted: boolean;
-  updateHighlightedCells: (coords: Coordinate) => void;
+  highlightedCells: HighlightedCells;
   coord: Coordinate;
 }) {
   let className;
-  if (props.isHighlighted) {
+  if (props.highlightedCells.isHighlighted(props.coord)) {
     className = "WordGridCellHighlighted";
   } else {
     className = "WordGridCell";
@@ -34,7 +37,7 @@ function GridCell(props: {
     <td
       className={className}
       onClick={() => {
-        props.updateHighlightedCells(props.coord);
+        props.highlightedCells.click(props.coord);
       }}
     >
       {props.cell}
@@ -44,19 +47,15 @@ function GridCell(props: {
 
 function GridRow(props: {
   row: string[];
-  highlightedCells?: Coordinate;
+  highlightedCells: HighlightedCells;
   rowIndex: number;
-  updateHighlightedCells: (coords: Coordinate) => void;
 }) {
   let row_vals = [];
-  let isRow = props.rowIndex === props.highlightedCells?.row;
   for (let c = 0; c < props.row.length; c++) {
-    let isHighlighted = isRow && c === props.highlightedCells?.col;
     row_vals.push(
       <GridCell
         cell={props.row[c]}
-        isHighlighted={isHighlighted}
-        updateHighlightedCells={props.updateHighlightedCells}
+        highlightedCells={props.highlightedCells}
         coord={{ row: props.rowIndex, col: c }}
       />,
     );
@@ -65,7 +64,7 @@ function GridRow(props: {
 }
 
 export function WordGridComponent() {
-  let [highlightedCells, updateHighlightedCells] = React.useState<Coordinate>();
+  let highlightedCells = HighlightedCellsHook();
   let grid = new WordGrid(5, 5);
   let table = [];
   for (let r = 0; r < grid.grid.length; r++) {
@@ -74,7 +73,6 @@ export function WordGridComponent() {
         row={grid.grid[r]}
         highlightedCells={highlightedCells}
         rowIndex={r}
-        updateHighlightedCells={updateHighlightedCells}
       />,
     );
   }
