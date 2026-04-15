@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { WordGridComponent } from "./WordGrid";
+import { WordGridComponent } from "./WordGridComponent";
 
 function Header() {
   return (

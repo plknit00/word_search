@@ -1,84 +1,33 @@
 import React from "react";
-import "./WordGrid.css";
-import {
-  Coordinate,
-  HighlightedCells,
-  HighlightedCellsHook,
-} from "./HighlightedCells";
+import { Coordinate } from "./HighlightedCells";
 
-class WordGrid {
-  grid: string[][];
+export interface WordGrid {
+  rows: number;
+  cols: number;
+  getLetter: (coord: Coordinate) => string;
+}
 
-  constructor(width: number, height: number) {
-    this.grid = [];
-    for (let h = 0; h < height; h++) {
-      this.grid.push([]);
-      for (let w = 0; w < width; w++) {
-        let sum = w + h;
-        this.grid[h].push(sum.toString());
-      }
+function wordGridConstructor(width: number, height: number) {
+  let grid: string[][] = [];
+  for (let h = 0; h < height; h++) {
+    grid.push([]);
+    for (let w = 0; w < width; w++) {
+      let sum = w + h;
+      grid[h].push(sum.toString());
     }
   }
+  return grid;
 }
 
-function GridCell(props: {
-  cell: string;
-  highlightedCells: HighlightedCells;
-  coord: Coordinate;
-}) {
-  let className;
-  if (props.highlightedCells.isHighlighted(props.coord)) {
-    className = "WordGridCellHighlighted";
-  } else {
-    className = "WordGridCell";
-  }
+export function WordGridHook(): WordGrid {
+  let rows = 5;
+  let cols = 5;
+  // later todo: get from my cpp code
+  let [wordGrid] = React.useState(() => wordGridConstructor(rows, cols));
 
-  return (
-    <td
-      className={className}
-      onClick={() => {
-        props.highlightedCells.click(props.coord);
-      }}
-    >
-      {props.cell}
-    </td>
-  );
-}
+  let getLetter = (coord: Coordinate): string => {
+    return wordGrid[coord.row][coord.col];
+  };
 
-function GridRow(props: {
-  row: string[];
-  highlightedCells: HighlightedCells;
-  rowIndex: number;
-}) {
-  let row_vals = [];
-  for (let c = 0; c < props.row.length; c++) {
-    row_vals.push(
-      <GridCell
-        cell={props.row[c]}
-        highlightedCells={props.highlightedCells}
-        coord={{ row: props.rowIndex, col: c }}
-      />,
-    );
-  }
-  return <tr>{row_vals}</tr>;
-}
-
-export function WordGridComponent() {
-  let highlightedCells = HighlightedCellsHook();
-  let grid = new WordGrid(5, 5);
-  let table = [];
-  for (let r = 0; r < grid.grid.length; r++) {
-    table.push(
-      <GridRow
-        row={grid.grid[r]}
-        highlightedCells={highlightedCells}
-        rowIndex={r}
-      />,
-    );
-  }
-  return (
-    <div className="WordSearchGrid">
-      <table>{table}</table>
-    </div>
-  );
+  return { rows, cols, getLetter };
 }

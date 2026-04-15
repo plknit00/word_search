@@ -1,11 +1,12 @@
 
 .WordGridCell {
-    background-color: #fec4c4;
+    background-color: #fec4db;
     padding: 20px;
 }
 
 .WordGridCellHighlighted {
-    background-color: #f1f44c;
+    background-color: #fc7daf;
+    padding: 20px;
 }
 
 .WordSearchGrid{
