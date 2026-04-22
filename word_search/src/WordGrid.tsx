@@ -1,5 +1,5 @@
 import React from "react";
-import { Coordinate } from "./HighlightedCells";
+import { Coordinate } from "./Coordinate";
 
 export interface WordGrid {
   rows: number;

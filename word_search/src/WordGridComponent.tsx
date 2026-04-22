@@ -1,11 +1,12 @@
 import React from "react";
 import "./WordGridComponent.css";
 import {
-  Coordinate,
+  ClickStatus,
   HighlightedCells,
   HighlightedCellsHook,
 } from "./HighlightedCells";
 import { WordGrid, WordGridHook } from "./WordGrid";
+import { Coordinate } from "./Coordinate";
 
 function GridCell(props: {
   grid: WordGrid;
@@ -23,7 +24,16 @@ function GridCell(props: {
     <td
       className={className}
       onClick={() => {
-        props.highlightedCells.click(props.coord);
+        let status = props.highlightedCells.click(props.coord);
+        if (status === ClickStatus.WordSelected) {
+          let cells = props.highlightedCells.getHighlightedCells();
+          let word = "";
+          for (let cell of cells) {
+            let letter = props.grid.getLetter(cell);
+            word = word + letter;
+          }
+          console.log(word);
+        }
       }}
     >
       {props.grid.getLetter(props.coord)}
