@@ -1,5 +1,7 @@
 # Advanced Word Search Solver
 
+## Link to Word Search Site: [add link]
+
 This program takes in a dictionary list of words and a 2D grid of letters and searches for which words in the dictionary can be found in the word grid on the following axes:
 1. Vertical
 2. Horizontal
