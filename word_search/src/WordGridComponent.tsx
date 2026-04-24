@@ -16,6 +16,8 @@ function GridCell(props: {
   let className;
   if (props.highlightedCells.isHighlighted(props.coord)) {
     className = "WordGridCellHighlighted";
+  } else if (props.grid.isConfirmed(props.coord)) {
+    className = "WordGridCellConfirmed";
   } else {
     className = "WordGridCell";
   }
@@ -33,6 +35,10 @@ function GridCell(props: {
             word = word + letter;
           }
           console.log(word);
+          if (props.grid.isValidWord(word)) {
+            props.highlightedCells.clear();
+            props.grid.confirmTiles(cells);
+          }
         }
       }}
     >

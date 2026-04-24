@@ -9,6 +9,11 @@
     padding: 20px;
 }
 
+.WordGridCellConfirmed {
+    background-color: #d6b6ff;
+    padding: 20px;
+}
+
 .WordSearchGrid{
     display: flex;
     justify-content: center; 

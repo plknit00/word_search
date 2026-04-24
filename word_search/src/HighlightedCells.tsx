@@ -17,6 +17,7 @@ export interface HighlightedCells {
   click: (coord: Coordinate) => ClickStatus;
   getHighlightedCells: () => Coordinate[];
   isHighlighted: (coord: Coordinate) => boolean;
+  clear: () => void;
 }
 
 export function HighlightedCellsHook(): HighlightedCells {
@@ -68,5 +69,10 @@ export function HighlightedCellsHook(): HighlightedCells {
     }
   }
 
-  return { click, getHighlightedCells, isHighlighted };
+  function clear() {
+    updateClickedCell1(undefined);
+    updateClickedCell2(undefined);
+  }
+
+  return { click, getHighlightedCells, isHighlighted, clear };
 }
