@@ -35,7 +35,7 @@ function GridCell(props: {
             word = word + letter;
           }
           console.log(word);
-          if (props.grid.isValidWord(word)) {
+          if (props.grid.confirmWordIfFound(word)) {
             props.highlightedCells.clear();
             props.grid.confirmTiles(cells);
           }

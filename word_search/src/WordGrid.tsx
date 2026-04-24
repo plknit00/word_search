@@ -1,11 +1,12 @@
 import React from "react";
 import { Coordinate } from "./Coordinate";
+import { DictionaryHook } from "./Dictionary";
 
 export interface WordGrid {
   rows: number;
   cols: number;
   getLetter: (coord: Coordinate) => string;
-  isValidWord: (word: string) => boolean;
+  confirmWordIfFound: (word: string) => boolean;
   confirmTiles: (coordList: Coordinate[]) => void;
   isConfirmed: (coord: Coordinate) => boolean;
 }
@@ -32,13 +33,14 @@ export function WordGridHook(): WordGrid {
   let cols = 5;
   // later todo: get from my cpp code
   let [wordGrid] = React.useState(() => wordGridConstructor(rows, cols));
+  let dict = DictionaryHook();
 
   function getLetter(coord: Coordinate): string {
     return wordGrid[coord.row][coord.col].letter;
   }
 
-  function isValidWord(word: string): boolean {
-    return word === "1234";
+  function confirmWordIfFound(word: string): boolean {
+    return dict.confirmWordIfFound(word);
   }
 
   function confirmTiles(coordList: Coordinate[]) {
@@ -51,5 +53,12 @@ export function WordGridHook(): WordGrid {
     return wordGrid[coord.row][coord.col].containedInFoundWord;
   }
 
-  return { rows, cols, getLetter, isValidWord, confirmTiles, isConfirmed };
+  return {
+    rows,
+    cols,
+    getLetter,
+    confirmWordIfFound,
+    confirmTiles,
+    isConfirmed,
+  };
 }
