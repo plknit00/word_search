@@ -5,6 +5,12 @@ project(word_search LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_package(Boost REQUIRED)
+
+include_directories(/opt/homebrew/include)
+
+set(Boost_NO_BOOST_CMAKE ON)
+
 include(FetchContent)
 
 FetchContent_Declare(
@@ -33,3 +39,16 @@ target_link_libraries(word_search_test
 
 include(GoogleTest)
 gtest_discover_tests(word_search_test)
+
+add_executable(word_search
+main.cc
+word_search.cc
+dict.cc
+grid.cc
+)
+
+target_include_directories(word_search PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries(word_search)

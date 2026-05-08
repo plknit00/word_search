@@ -38,6 +38,8 @@ function GridCell(props: {
           if (props.grid.confirmWordIfFound(word)) {
             props.highlightedCells.clear();
             props.grid.confirmTiles(cells);
+          } else {
+            props.highlightedCells.clear();
           }
         }
       }}
